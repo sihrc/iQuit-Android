@@ -1,6 +1,7 @@
 package com.sihrc.quit;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,6 +36,8 @@ public class MainActivity extends Activity {
         db = new DBHandler(this);
         db.open();
 
+
+
         image = (ResizableImageView)findViewById(R.id.activity_main_image);
         button = (Button)findViewById(R.id.activity_main_quit_button);
 
@@ -52,14 +55,35 @@ public class MainActivity extends Activity {
     private void goToNextImage(){
 
     }
+    private void getGIF(){
+        gif.url = urls.get(getURLIndex());
+        gif.images = db.getImagesForGIF(urls.get(getURLIndex()));
+        if (gif.images.size() == 0){
+            new AsyncTask<Void, Void, Void>(){
+                @Override
+                protected Void doInBackground(Void... params) {
+
+                    return null;
+                }
+            };
+        }
+    }
+
 
     /**
-     * URLS
+     * SharedPreferences
      */
     private void getURLS(){
         urls.clear();
         urls.addAll(Arrays.asList(getSharedPreferences("QUIT", MODE_PRIVATE).getString("urls", getResources().getString(R.string.urls)).split(",")));
     }
+    private int getURLIndex(){
+        return getSharedPreferences("QUIT", MODE_PRIVATE).getInt("urlIndex", 0);
+    }
+    private void saveURLIndex(int value){
+        getSharedPreferences("QUIT", MODE_PRIVATE).edit().putInt("urlIndex", 0).commit();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -75,9 +99,6 @@ public class MainActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 }
