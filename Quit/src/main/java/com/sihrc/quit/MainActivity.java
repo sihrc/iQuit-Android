@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
     /**
      * Retrieving the GIF
      */
-    String serverURL = "https://sihrc.github.io/views/quit.html";
+    String serverURL = "http://sihrc.github.io/views/quit.html";
     DBHandler db;
     GIF gif;
     ArrayList<String> urls = new ArrayList<String>();
