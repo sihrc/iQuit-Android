@@ -8,10 +8,12 @@ import java.util.ArrayList;
 public class GIF {
     ArrayList<byte[]> images;
     String url;
+    Integer length;
+    String ext;
 
     public GIF(String url, ArrayList<byte[]> images){
         this.url = url;
         this.images = images;
+        this.length = images.size();
     }
-
 }

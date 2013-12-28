@@ -15,7 +15,7 @@ public class DatabaseModel extends SQLiteOpenHelper {
 
     //Table Fields
     public static final String GIF_URL = "url";
-    public static final String GIF_INDEX = "index";
+    public static final String GIF_INDEX = "position";
     public static final String GIF_IMAGE = "image";
 
     //Database Info

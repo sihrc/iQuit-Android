@@ -38,7 +38,7 @@ public class DBHandler {
         for (int i = 0; i < gif.images.size(); i++){
             values.put(DatabaseModel.GIF_IMAGE, gif.images.get(i));
             values.put(DatabaseModel.GIF_INDEX, i);
-            database.insertWithOnConflict(DatabaseModel.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+            database.insert(DatabaseModel.TABLE_NAME, null, values);
         }
     }
 
@@ -47,7 +47,8 @@ public class DBHandler {
      */
     public ArrayList<byte[]> getImagesForGIF(String url){
         return sweepCursor(database.query(
-                DatabaseModel.TABLE_NAME,                allColumns,
+                DatabaseModel.TABLE_NAME,
+                allColumns,
                 DatabaseModel.GIF_URL + " like '" + url + "'",
                 null, null, null,
                 DatabaseModel.GIF_INDEX));
